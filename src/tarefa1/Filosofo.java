@@ -37,7 +37,7 @@ public class Filosofo implements Runnable {
             synchronized (garfoDireito) {
                 this.log("pegou ambos os garfos e começou a comer.");
                 Thread.sleep((random.nextInt(3) + 1) * 1000);
-                this.log("terminou de comer e soltou os garfos.\\n");
+                this.log("terminou de comer e soltou os garfos.\n");
             }
         }
     }
