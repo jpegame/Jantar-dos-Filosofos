@@ -33,30 +33,29 @@ private void comer() throws InterruptedException {
 
 ## Resultados
 
-Na resposta apresentada no terminal abaixo, foi possível que os filósofos ainda se alimentavam mesmo após 5 minutos de execução.
+Na resposta apresentada no terminal abaixo, foi possível que os filósofos comeram inúmeras vezes durante o tempo de 2 minutos de execução. Porém alguns filósofos comeram mais que outros, o filósofo 3 por exemplo comeu 26 vezes, enquanto o 4 comeu 18. O problema de starvation então ainda ocorre, mesmo não travando para que todos comam como o deadlock, o filósofo 4 ainda sim comeu menos que os outros, pelo fato de que o 3 (que foi o que mais se alimentou), travou o 4 de se alimentar.
 
 ```bash
-Filósofo 3 está tentando pegar o primeiro garfo (3)
-Filósofo 1 pegou ambos os garfos e começou a comer.
-Filósofo 2 está pensando.
-Filósofo 3 pegou o primeiro garfo (3)
-Filósofo 3 tentando pegar o segundo garfo (4)
-Filósofo 4 terminou de comer e soltou os garfos.
-
-Filósofo 0 está tentando pegar o primeiro garfo (0)
-Filósofo 3 pegou ambos os garfos e começou a comer.
-Filósofo 4 está pensando.
-Filósofo 0 pegou o primeiro garfo (0)
-Filósofo 0 tentando pegar o segundo garfo (1)
+Filósofo 0 está pensando.
+Filósofo 4 pegou o primeiro garfo (0)
+Filósofo 1 pegou o primeiro garfo (1)
+Filósofo 4 tentando pegar o segundo garfo (4)
+Filósofo 1 tentando pegar o segundo garfo (2)
 Filósofo 3 terminou de comer e soltou os garfos.
 
-Filósofo 1 terminou de comer e soltou os garfos.
-
-Filósofo 2 está tentando pegar o primeiro garfo (2)
-Filósofo 0 pegou ambos os garfos e começou a comer.
-Filósofo 1 está pensando.
 Filósofo 3 está pensando.
-Filósofo 2 pegou o primeiro garfo (2)
-Filósofo 2 tentando pegar o segundo garfo (3)
 Filósofo 2 pegou ambos os garfos e começou a comer.
+Filósofo 4 pegou ambos os garfos e começou a comer.
+Filósofo 0 está tentando pegar o primeiro garfo (0)
+Filósofo 1 pegou ambos os garfos e começou a comer.
+Filósofo 0 pegou o primeiro garfo (0)
+Filósofo 0 tentando pegar o segundo garfo (1)
+Filósofo 0 pegou ambos os garfos e começou a comer.
+
+=== Estatísticas de execução (vezes que cada filósofo comeu) ===
+Filósofo 0: 19 vezes
+Filósofo 1: 20 vezes
+Filósofo 2: 19 vezes
+Filósofo 3: 26 vezes
+Filósofo 4: 18 vezes
 ```

@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Filosofo implements Runnable {
     private final int id;
@@ -6,10 +7,15 @@ public class Filosofo implements Runnable {
     private final Garfo garfoDireito;
     private final Random random = new Random();
 
-    public Filosofo(int id, Garfo esquerdo, Garfo direito) {
+    // AtomicInteger é um inteiro que permite operacoes atomicas (Thread-Safe) 
+    // ideal para algoritmos concorrentes como este
+    private final AtomicInteger numVezesQueComeu;
+
+    public Filosofo(int id, Garfo esquerdo, Garfo direito, AtomicInteger numVezesQueComeu) {
         this.id = id;
         this.garfoEsquerdo = esquerdo;
         this.garfoDireito = direito;
+        this.numVezesQueComeu = numVezesQueComeu;
     }
 
     private void log(String text) {
@@ -35,6 +41,9 @@ public class Filosofo implements Runnable {
             synchronized (segundoGarfo) {
                 this.log("pegou ambos os garfos e começou a comer.");
                 Thread.sleep((random.nextInt(3) + 1) * 1000);
+
+                // Incremento no número de vezes que comeu para estatisticas
+                this.numVezesQueComeu.incrementAndGet();
                 this.log("terminou de comer e soltou os garfos.\n");
             }
         }
