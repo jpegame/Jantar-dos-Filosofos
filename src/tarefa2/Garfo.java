@@ -1,3 +1,5 @@
+package tarefa2;
+
 public class Garfo {
     // Usado para saber qual garfo é pego para mostrar no LOG
     private final int id;
