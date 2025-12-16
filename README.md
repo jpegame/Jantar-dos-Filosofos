@@ -1,6 +1,6 @@
 # Prova Jantar dos Filósofos
 
-O projeto é dividido em diferentes pacotes encontrados na pasta `/src`, cada um deles é uma implementação do problema do Jantar dos filósofos em que cada um destes pacotes possui um README.md específico com uma explicação de pontos cruciais de sua implmentação.
+O projeto é dividido em diferentes pacotes encontrados na pasta `/src`, cada um deles é uma implementação do problema do Jantar dos filósofos em que cada um destes pacotes possui um `README.md` específico com uma explicação de pontos cruciais de sua implmentação.
 
 Abaixo segue como rodar cada projeto:
 
