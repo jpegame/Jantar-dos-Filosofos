@@ -1,19 +1,46 @@
 ## Introdução
 
-O Jantar dos filósofos é um problema criado em 1965 por Edsger Dijkstra para simular o problema de recursos compartilhados por sistemas concorrentes. Ele consiste em uma mesa circular com N filósofos em que cada filósofo precisa pegar dois garfos, um de cada lado, para poder comer. O problema vem do fato que o número de garfos corresponde ao número de filósofos, então é preciso ter uma organização para que nenhum filósofo fique com fome. 
+O Jantar dos filósofos é um problema criado em 1965 por Edsger Dijkstra para simular o problema de recursos compartilhados por sistemas concorrentes. Ele consiste em uma mesa circular com N filósofos em que cada filósofo precisa pegar dois garfos, um de cada lado, para poder comer. O problema vem do fato que o número de garfos corresponde ao número de filósofos, então é preciso ter uma organização para que nenhum filósofo fique com fome.
 
 ## Metodologia
 
-Foram feitos 3 testes com algoritmos diferentes em relação a solução do problema do jantar dos filósofos, cada um deles com uma técnica diferente.
+Para cada um dos testes foi obtidos métricas para assim ser possível verificar as soluções e definir qual é a mais adequada para cada situação. Todas as métricas foram extraidas do mesmo cenário de 5 filósofos, 5 garfos por 5 minutos. As métricas obtidas foram:
 
-### Filósofo invertido
+* Quantas vezes cada filósofo comeu
+* Tempo médio de espera por filósofo (ms)
+* Taxa de uso dos garfos (%)
+* Coeficiente de variação (%)
 
-Demonstração da técnica
+## Resultados
 
-### Semaforos
+### Solução com a inversão do filósofo
 
-Demonstração da técnica
+Métricas do filósofo:
 
-### Monitor
+| ID do filósofo | Número de refeições | Tempo média de espera por filósofo |
+|:--------------:|:-------------------:|:----------------------------------:|
+|0|52|1867,50ms|
+|1|55|1618,53 ms|
+|2|55|1345,80 ms|
+|3|56|1139,90 ms|
+|4|51|1769,67 ms|
 
-Demonstração da técnica
+Métrica do garfo:
+
+|ID do garfo|Taxa de uso|
+|-----------|-----------|
+|0|65,67%|
+|1|63,67%|
+|2|68,01%|
+|3|75,01%|
+|4|73,01%|
+
+Coeficiente de variação: `3,6042%`
+
+### Solução com semáforos
+
+teste
+
+### Solução com monitor
+
+teste

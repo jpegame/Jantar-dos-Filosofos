@@ -9,6 +9,10 @@ public class Filosofo implements Runnable {
     private final Garfo garfoDireito;
     private final Random random = new Random();
 
+    //Metrica para tarefa5 que precisa do tempo medio de espera
+    private long tempoTotalEspera = 0;
+    private int numeroTentativas = 0;
+
     // AtomicInteger é um inteiro que permite operacoes atomicas (Thread-Safe) 
     // ideal para algoritmos concorrentes como este
     private final AtomicInteger numVezesQueComeu;
@@ -31,6 +35,10 @@ public class Filosofo implements Runnable {
     }
 
     private void pegarGarfo(Garfo primeiroGarfo, Garfo segundoGarfo) throws InterruptedException {
+        // Começa a medir o tempo de espera e adiciona mais uma tentativa para comer
+        long inicioEspera = System.nanoTime();
+        numeroTentativas++;
+
         this.log("está tentando pegar o primeiro garfo (" + garfoEsquerdo.getId() + ")");
 
         // Filosofo tenta primeiramente pegar o garfo primeiro garfo e ao pegar tenta o segundo, 
@@ -41,11 +49,24 @@ public class Filosofo implements Runnable {
 
             // Mesmo processo acima, mas agora para o segundo
             synchronized (segundoGarfo) {
+                // Para o tempo de espera ao conseguir pegar ambos os garfos e adiciona ao tempo total de espera
+                long fimEspera = System.nanoTime();
+                tempoTotalEspera += (fimEspera - inicioEspera);
+
+                // Começa a contagem de tempo do garfo para a métrica de taxa de uso
+                primeiroGarfo.usarGarfo();
+                segundoGarfo.usarGarfo();
+
                 this.log("pegou ambos os garfos e começou a comer.");
                 Thread.sleep((random.nextInt(3) + 1) * 1000);
 
+                // Libera os garfos após comer que para a contagem de tempo do garfo para a métrica de taxa de uso
+                primeiroGarfo.liberarGarfo();
+                segundoGarfo.liberarGarfo();
+
                 // Incremento no número de vezes que comeu para estatisticas
                 this.numVezesQueComeu.incrementAndGet();
+
                 this.log("terminou de comer e soltou os garfos.\n");
             }
         }
@@ -58,6 +79,12 @@ public class Filosofo implements Runnable {
         } else {
             pegarGarfo(garfoEsquerdo, garfoDireito);
         }
+    }
+
+    // Métrica para tarefa5 que calcula o tempo medio de espera em ms
+    public double getTempoMedioEspera() {
+        return numeroTentativas == 0 ? 0 :
+            (tempoTotalEspera / (double) numeroTentativas) / 1_000_000.0;
     }
 
     // processo em que os filosofos pensam por um tempo aleatorio e tentam comer pelo tempo aleatorio infinitamente
