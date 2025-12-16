@@ -8,6 +8,10 @@ class Mesa {
     private final boolean[] garfos = new boolean[5];
     private final Queue<Integer> fila = new LinkedList<>();
 
+    //Metrica para tarefa5 que calcula a taxa de uso do garfo
+    private final long[] inicioUsoGarfo = new long[5];
+    private final long[] tempoTotalUsoGarfo = new long[5];
+
     public synchronized void pegarGarfos(int filosofoId) throws InterruptedException {
         this.fila.add(filosofoId);
 
@@ -25,6 +29,10 @@ class Mesa {
 
         this.garfos[esquerdo] = true;
         this.garfos[direito] = true;
+
+        // Começa a contagem de tempo do garfo para a métrica de taxa de uso
+        inicioUsoGarfo[esquerdo] = System.nanoTime();
+        inicioUsoGarfo[direito] = System.nanoTime();
     }
 
     public synchronized void soltarGarfos(int filosofoId) {
@@ -34,9 +42,20 @@ class Mesa {
         int esquerdo = filosofoId;
         int direito = (filosofoId + 1) % 5;
 
+        // Finaliza a contagem de tempo do garfo para a métrica de taxa de uso
+        long agora = System.nanoTime();
+        tempoTotalUsoGarfo[esquerdo] += agora - inicioUsoGarfo[esquerdo];
+        tempoTotalUsoGarfo[direito] += agora - inicioUsoGarfo[direito];
+
         this.garfos[esquerdo] = false;
         this.garfos[direito] = false;
         notifyAll();
+    }
+
+    // Retorna a taxa de uso do garfo em porcentagem levando 
+    // em conta o tempo de execução, no caso 5 minutos
+    public double getTaxaUsoGarfo(int id, long tempoTotalSimulacao) {
+        return (tempoTotalUsoGarfo[id] / (double) tempoTotalSimulacao) * 100;
     }
 
     private boolean podeComer(int filosofoId) {

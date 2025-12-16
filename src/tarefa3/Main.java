@@ -52,6 +52,7 @@ public class Main {
             Filosofo filosofo = new Filosofo(i, esquerdo, direito, contador[i], limiteFilosofo);
             threads[i] = new Thread(filosofo, "Filosofo-" + i);
             threads[i].start();
+            
             filosofos[i] = filosofo;
         }
 
