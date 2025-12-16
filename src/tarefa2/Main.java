@@ -80,7 +80,7 @@ public class Main {
         for (int i = 0; i < 5; i++) {
             System.out.printf("• Taxa de uso do garfo %d      : %.2f%%%n",
                     i,
-                    (garfos[i].getTempoTotalEmUso() / 300_000_000_000.0) * 100);
+                    (garfos[i].getTempoTotalEmUso() / 300_000_000_000.0) * 100); // tempo total de uso / tempo total de execução em ns
             System.out.println();
         }
 

@@ -19,7 +19,7 @@ Métricas do filósofo:
 
 | ID do filósofo | Número de refeições | Tempo média de espera por filósofo |
 |:--------------:|:-------------------:|:----------------------------------:|
-|0|52|1867,50ms|
+|0|52|1867,50 ms|
 |1|55|1618,53 ms|
 |2|55|1345,80 ms|
 |3|56|1139,90 ms|
@@ -39,7 +39,27 @@ Coeficiente de variação: `3,6042%`
 
 ### Solução com semáforos
 
-teste
+Métricas do filósofo:
+
+| ID do filósofo | Número de refeições | Tempo média de espera por filósofo |
+|:--------------:|:-------------------:|:----------------------------------:|
+|0|44|2733,95 ms|
+|1|45|2544,07 ms|
+|2|44|2867,33 ms|
+|3|46|2362,25 ms|
+|4|45|2778,36 ms|
+
+Métrica do garfo:
+
+|ID do garfo|Taxa de uso|
+|-----------|-----------|
+|0|87,68%|
+|1|90,68%|
+|2|84,35%|
+|3|85,01%|
+|4|92,01%|
+
+Coeficiente de variação: `1,6704%`
 
 ### Solução com monitor
 

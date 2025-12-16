@@ -10,6 +10,10 @@ class Filosofo implements Runnable {
     private final Garfo garfoDireito;
     private final Random random = new Random();
 
+    //Metrica para tarefa5 que precisa do tempo medio de espera
+    private long tempoTotalEspera = 0;
+    private int numeroTentativas = 0;
+
     // Semaforo que limite quantos filosofos podem pegar garfo ao mesmo tempo
     private final Semaphore limiteFilosofo;
 
@@ -36,7 +40,12 @@ class Filosofo implements Runnable {
     }
 
     private void comer() throws InterruptedException {
+        // Começa a medir o tempo de espera e adiciona mais uma tentativa para comer
+        long inicioEspera = System.nanoTime();
+        numeroTentativas++;
+
         limiteFilosofo.acquire(); // limita 4 filósofos tentando ao mesmo tempo, bloqueando acessos alem do valor limite
+
 
         // Filosofos tentaram pegar os dois garfos, que por conta do limite de 4 no máximo, 
         // um filosofo sempre vai ter um garfo disponivel para poder comer, evitando o deadlock
@@ -45,6 +54,10 @@ class Filosofo implements Runnable {
             this.log("tentando pegar garfos.");
             garfoEsquerdo.pegar();
             garfoDireito.pegar();
+
+            // Para o tempo de espera ao conseguir pegar ambos os garfos e adiciona ao tempo total de espera
+            long fimEspera = System.nanoTime();
+            tempoTotalEspera += (fimEspera - inicioEspera);
 
             this.log("pegou ambos os garfos e começou a comer.");
             Thread.sleep((random.nextInt(3) + 1) * 1000);
@@ -59,6 +72,12 @@ class Filosofo implements Runnable {
         } finally {
             limiteFilosofo.release();
         }
+    }
+
+    // Métrica para tarefa5 que calcula o tempo medio de espera em ms
+    public double getTempoMedioEspera() {
+        return numeroTentativas == 0 ? 0 :
+            (tempoTotalEspera / (double) numeroTentativas) / 1_000_000.0;
     }
 
     // processo em que os filosofos pensam por um tempo aleatorio e tentam comer pelo tempo aleatorio
